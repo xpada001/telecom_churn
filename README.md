@@ -15,7 +15,10 @@ The original dataset has a size of about 43 GB, including about 9 million users 
 Since the original dataset is about call records, it is hard to see a specific user behaviour. 
 Preprocessing was done to combine all the call records by caller ID. Data transformation was done to reduce the dimensions of the original dataset. 
 To be specific, for each caller ID, the number of callers contacted (callersum), total number of calling records (recordsum), and calling duration (timesum) 
-was calculated by month.
+was calculated by month for 3 months. Also, there are other important features such as city_flag (0 or 1), brand and day since being a customer. Here is an example of the data, where flag is the target.
+
+![alt text](https://github.com/xpada001/telecom_churn/blob/main/data_example.png?raw=true)
+
 
 ## Data Cleansing
 
@@ -35,31 +38,25 @@ from the analysis.
 ### Data Visualization
 Based on the feature value distribution shown in Appendix (3), it could be found that most of the customers who left the company tend to use the services less 
 while they were still using the company’s service (i.e. the churning customers were calling less frequently to fewer people, and each phone call lasted shorter). 
-In other words, there is a clear difference in behavior for users with different target values. 
+In other words, there is a clear difference in behavior for users with different target values. Some examples of data visualization are shown below:
+
+![alt text](https://github.com/xpada001/telecom_churn/blob/main/record_0.png?raw=true)
+![alt text](https://github.com/xpada001/telecom_churn/blob/main/record_1.png?raw=true)
+
+![alt text](https://github.com/xpada001/telecom_churn/blob/main/caller_0.png?raw=true)
+![alt text](https://github.com/xpada001/telecom_churn/blob/main/caller_1.png?raw=true)
 
 ## Model Building
-Four different models were used: Random Forest, Logistic Regression, GBDT (Gradient Boosting Decision Tree) and XGBoost.
-
-|                     | TN       | FN    | FP     | TP    | Test Accuracy |
-| -------------       | -------- | ----- | ------ | ----- | --------------|
-| Random Forest       |   850263 | 22250 | 104106 | 41433 | 0.873884      |
-| Logistic Regression |   915407 | 7430  | 128533 | 17121 | 0.846720      |
-| GBDT                |   850919 | 22296 | 102498 | 42339 | 0.855418      |
-| XGBoost             |   851827 | 21281 | 104225 | 40724 | 0.876622      |
-
-
-From the result shown above, Random Forest and XGBoost provided better test accuracy than the other two algorithms. Therefore, Random Forest and XGBoost algorithm was selected for further analysis.
-
-
-It is observed that the data set is imbalanced, one simple technique is to assign weights for different class.
-(Class 0 weight = 0.2, Class 1 weight = 0.8) was chosen because it turned out to be balanced on both the test accuracy and ROC score.
+Four different models were used: Random Forest, Logistic Regression, GBDT (Gradient Boosting Decision Tree) and XGBoost. It is observed that the data set is imbalanced, one simple technique is to assign weights for different class. (Class 0 weight = 0.2, Class 1 weight = 0.8) was chosen because it turned out to be balanced on both the test accuracy and ROC score.
 
 Moreover, to reduce runtime, feature selection was done to see whether certain features can be removed from the model by using XGBoost and RandomForest building functionality.
 We compared the top 10 feature selected by both models, and XGboost feature selection yielded a better result.
 
 ### Missing Data Handling
 One of the amazing characteristics of XGBoost is that it is able to automatically handle missing values in the dataset. We compared the results of running XGBoost on the dataset 
-with the missing values and without the missing values. We also compared with the dataset with imputed values ran by Random Forest, and we concluded that XGboost (with or without missing data) outperforms Random forest.
+with the missing values and without the missing values, and we noticed that with missing value resulted in a better ROC score.
 
 ## More Information
-For more detailed information about this project, please see the notebook and the report in this repo.
+For more detailed information about this project, please see the notebook in this repo. 
+
+**Note**: this is one of my first project in Data Science, more model tuning technics like hyper-parameter tuning is needed to be done to obtain a better performance.
