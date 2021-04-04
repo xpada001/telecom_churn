@@ -59,4 +59,4 @@ with the missing values and without the missing values, and we noticed that with
 ## More Information
 For more detailed information about this project, please see the notebook in this repo or contact me by email chensiao06@gmail.com.
 
-**Note**: this is one of my first project in Data Science, more model tuning technics like hyper-parameter tuning is needed to be done to obtain a better performance.
+**Note**: this is one of my first project in Data Science, more model tuning techniques like hyper-parameter tuning is needed to be done to obtain a better performance.
